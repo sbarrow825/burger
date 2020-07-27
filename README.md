@@ -1,244 +1,206 @@
-# Node Express Handlebars
+# Unit 13: Node Express Handlebars
 
-### Overview
+## Deployed Link
 
-In this assignment, you'll create a burger logger with MySQL, Node, Express, Handlebars and a homemade ORM (yum!). Be sure to follow the MVC design pattern; use Node and MySQL to query and route data in your app, and Handlebars to generate your HTML.
+The deployed heroku link to the application can [be accessed here](https://shielded-coast-50124.herokuapp.com/)
 
-### Read This
+## Description
 
-When trying to connect remotely to your Heroku database on an open network such as a coffee shop, library, or even your University WiFi, it will be blocked. If you are experiencing a Heroku connection error, this could be why.
+Node.js web application for creating and eating burgers
 
-### Important
+## Table of Contents
 
-* **This assignment must be deployed.** Be sure to utilize the [MYSQL Heroku Deployment Guide](../student-resources/MySQLHeroku/MySQLHerokuDeploymentProcess.pdf) in order to deploy your assignment.
+* [Installation](#Installation)
+* [Usage](#Usage)
+* [License](#License)
+* [Dependencies](#Dependencies)
+* [Contributions](#Contributions)
+* [Tests](#Tests)
+* [Questions](#Questions)
 
-### Before You Begin
+## Installation
 
-* Eat-Da-Burger! is a restaurant app that lets users input the names of burgers they'd like to eat.
+If you're using the deployed link at the top of this README to run the application, there are no installation requirements.
 
-* Whenever a user submits a burger's name, your app will display the burger on the left side of the page -- waiting to be devoured.
+If you're running this application on your local machine, make sure that you've downloaded [Node.js from the nodejs.org website](https://nodejs.org/en/download/), then run the following command in the working directory of this project to install the necessary node modules
 
-* Each burger in the waiting area also has a `Devour it!` button. When the user clicks it, the burger will move to the right side of the page.
-
-* Your app will store every burger in a database, whether devoured or not.
-
-* [Check out this video of the app for a run-through of how it works](https://youtu.be/msvdn95x9OM).
-
-### Commits
-
-Having an active and healthy commit history on GitHub is important for your future job search. It is also extremely important for making sure your work is saved in your repository. If something breaks, committing often ensures you are able to go back to a working version of your code.
-
-* Committing often is a signal to employers that you are actively working on your code and learning.
-
-  * We use the mantra “commit early and often.”  This means that when you write code that works, add it and commit it!
-
-  * Numerous commits allow you to see how your app is progressing and give you a point to revert to if anything goes wrong.
-
-* Be clear and descriptive in your commit messaging.
-
-  * When writing a commit message, avoid vague messages like "fixed." Be descriptive so that you and anyone else looking at your repository knows what happened with each commit.
-
-* We would like you to have well over 200 commits by graduation, so commit early and often!
-
-### Submission on BCS
-
-* **This assignment must be deployed.** * Please submit both the deployed Heroku link to your homework AND the link to the Github Repository!
-
-## Instructions
-
-#### App Setup
-
-1. Create a GitHub repo called `burger` and clone it to your computer.
-
-2. Make a package.json file by running `npm init` from the command line.
-
-3. Install the Express npm package: `npm install express`.
-
-4. Create a server.js file.
-
-5. Install the Handlebars npm package: `npm install express-handlebars`.
-
-6. Install MySQL npm package: `npm install mysql`.
-
-7. Require the following npm packages inside of the server.js file:
-   * express
-
-#### DB Setup
-
-1. Inside your `burger` directory, create a folder named `db`.
-
-2. In the `db` folder, create a file named `schema.sql`. Write SQL queries this file that do the following:
-
-   * Create the `burgers_db`.
-   * Switch to or use the `burgers_db`.
-   * Create a `burgers` table with these fields:
-     * **id**: an auto incrementing int that serves as the primary key.
-     * **burger_name**: a string.
-     * **devoured**: a boolean.
-
-3. Still in the `db` folder, create a `seeds.sql` file. In this file, write insert queries to populate the `burgers` table with at least three entries.
-
-4. Run the `schema.sql` and `seeds.sql` files into the mysql server from the command line
-
-5. Now you're going to run these SQL files.
-
-   * Make sure you're in the `db` folder of your app.
-
-   * Start MySQL command line tool and login: `mysql -u root -p`.
-
-   * With the `mysql>` command line tool running, enter the command `source schema.sql`. This will run your schema file and all of the queries in it -- in other words, you'll be creating your database.
-
-   * Now insert the entries you defined in `seeds.sql` by running the file: `source seeds.sql`.
-
-   * Close out of the MySQL command line tool: `exit`.
-
-#### Config Setup
-
-1. Inside your `burger` directory, create a folder named `config`.
-
-2. Create a `connection.js` file inside `config` directory.
-
-   * Inside the `connection.js` file, setup the code to connect Node to MySQL.
-
-   * Export the connection.
-
-3. Create an `orm.js` file inside `config` directory.
-
-   * Import (require) `connection.js` into `orm.js`
-
-   * In the `orm.js` file, create the methods that will execute the necessary MySQL commands in the controllers. These are the methods you will need to use in order to retrieve and store data in your database.
-
-     * `selectAll()`
-     * `insertOne()`
-     * `updateOne()`
-
-   * Export the ORM object in `module.exports`.
-
-#### Model setup
-
-* Inside your `burger` directory, create a folder named `models`.
-
-  * In `models`, make a `burger.js` file.
-
-    * Inside `burger.js`, import `orm.js` into `burger.js`
-
-    * Also inside `burger.js`, create the code that will call the ORM functions using burger specific input for the ORM.
-
-    * Export at the end of the `burger.js` file.
-
-#### Controller setup
-
-1. Inside your `burger` directory, create a folder named `controllers`.
-
-2. In `controllers`, create the `burgers_controller.js` file.
-
-3. Inside the `burgers_controller.js` file, import the following:
-
-   * Express
-   * `burger.js`
-
-4. Create the `router` for the app, and export the `router` at the end of your file.
-
-#### View setup
-
-1. Inside your `burger` directory, create a folder named `views`.
-
-   * Create the `index.handlebars` file inside `views` directory.
-
-   * Create the `layouts` directory inside `views` directory.
-
-     * Create the `main.handlebars` file inside `layouts` directory.
-
-     * Setup the `main.handlebars` file so it's able to be used by Handlebars.
-
-     * Setup the `index.handlebars` to have the template that Handlebars can render onto.
-
-     * Create a button in `index.handlebars` that will submit the user input into the database.
-
-#### Directory structure
-
-All the recommended files and directories from the steps above should look like the following structure:
-
-```
-.
-├── config
-│   ├── connection.js
-│   └── orm.js
-│ 
-├── controllers
-│   └── burgers_controller.js
-│
-├── db
-│   ├── schema.sql
-│   └── seeds.sql
-│
-├── models
-│   └── burger.js
-│ 
-├── node_modules
-│ 
-├── package.json
-│
-├── public
-│   └── assets
-│       ├── css
-│       │   └── burger_style.css
-│       └── img
-│           └── burger.png
-│   
-│
-├── server.js
-│
-└── views
-    ├── index.handlebars
-    └── layouts
-        └── main.handlebars
+```sh
+npm install
 ```
 
-### Reminder: Submission on BCS
+Also, make sure that you've downloaded [MySQL from dev.mysql.com](https://dev.mysql.com/downloads/windows/installer/8.0.html) for your particular OS and installed the MySQL workbench along with it.
 
-* Please submit both the deployed Heroku link to your homework AND the link to the Github Repository!
+## Usage
 
-- - -
+Note: if using the deployed link at the top of this README to run the program, you can use the app right away. The following instructions are only for the case in which you are hosting and running the app on your local machine.
 
-### Minimum Requirements
+### Instructions for usage on local machine
+In order to run the program, first copy the schema.sql file into your MySQL workbench and generate a database by hitting the lightning bolt on the top of the window. Then type the following command into your command line with this project in your current working directory in order to run the application.
 
-Attempt to complete homework assignment as described in instructions. If unable to complete certain portions, please pseudocode these portions to describe what remains to be completed. Hosting on Heroku and adding a README.md are required for this homework. In addition, add this homework to your portfolio, more information can be found below.
- 
-- - -
+```sh
+node server.js
+```
 
-### Hosting on Heroku
+Your terminal will display the local host port that the app is now running on. Navigate to that local host port in your browser to use the application.
 
-Now that we have a backend to our applications, we use Heroku for hosting. Please note that while **Heroku is free**, it will request credit card information if you have more than 5 applications at a time or are adding a database.
+## License
 
-Please see [Heroku’s Account Verification Information](https://devcenter.heroku.com/articles/account-verification) for more details.
+![MIT License](https://img.shields.io/npm/l/inquirer)
 
-- - -
+## Dependencies
 
-### Create a README.md
+List of dependency statuses for all packages used in this project
 
-Add a `README.md` to your repository describing the project. Here are some resources for creating your `README.md`. Here are some resources to help you along the way:
+* npm express-handlbars ![](https://img.shields.io/librariesio/release/npm/handlebars)
+* npm mysql ![](https://img.shields.io/librariesio/release/npm/mysql)
+* npm express ![](https://img.shields.io/librariesio/release/npm/express)
 
-* [About READMEs](https://help.github.com/articles/about-readmes/)
+## Contributions
 
-* [Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
+The following in a copy of the [Contributor Covenant v2.0](https://www.contributor-covenant.org/). Please read before contributing to understand contribution guidelines.
 
-- - -
+### Our Pledge
 
-### Add To Your Portfolio
+We as members, contributors, and leaders pledge to make participation in our
+community a harassment-free experience for everyone, regardless of age, body
+size, visible or invisible disability, ethnicity, sex characteristics, gender
+identity and expression, level of experience, education, socio-economic status,
+nationality, personal appearance, race, religion, or sexual identity
+and orientation.
 
-After completing the homework please add the piece to your portfolio. Make sure to add a link to your updated portfolio in the comments section of your homework so the TAs can easily ensure you completed this step when they are grading the assignment. To receive an 'A' on any assignment, you must link to it from your portfolio.
+We pledge to act and interact in ways that contribute to an open, welcoming,
+diverse, inclusive, and healthy community.
 
-- - -
+### Our Standards
 
-### One More Thing
+Examples of behavior that contributes to a positive environment for our
+community include:
 
-This is a really tough homework assignment, but we want you to put in your best effort to finish it.
+* Demonstrating empathy and kindness toward other people
+* Being respectful of differing opinions, viewpoints, and experiences
+* Giving and gracefully accepting constructive feedback
+* Accepting responsibility and apologizing to those affected by our mistakes,
+  and learning from the experience
+* Focusing on what is best not just for us as individuals, but for the
+  overall community
 
-If you have any questions about this project or the material we have covered, please post them in the community channels in slack so that your fellow developers can help you! If you're still having trouble, you can come to office hours for assistance from your instructor and TAs.
+Examples of unacceptable behavior include:
 
-### Reminder
+* The use of sexualized language or imagery, and sexual attention or
+  advances of any kind
+* Trolling, insulting or derogatory comments, and personal or political attacks
+* Public or private harassment
+* Publishing others' private information, such as a physical or email
+  address, without their explicit permission
+* Other conduct which could reasonably be considered inappropriate in a
+  professional setting
 
-When trying to connect remotely to your Heroku database on an open network such as a coffee shop, library, or even your University WiFi, it will be blocked. If you are experiencing a Heroku connection error, this could be why.
+### Enforcement Responsibilities
 
-**Good Luck!**
+Community leaders are responsible for clarifying and enforcing our standards of
+acceptable behavior and will take appropriate and fair corrective action in
+response to any behavior that they deem inappropriate, threatening, offensive,
+or harmful.
+
+Community leaders have the right and responsibility to remove, edit, or reject
+comments, commits, code, wiki edits, issues, and other contributions that are
+not aligned to this Code of Conduct, and will communicate reasons for moderation
+decisions when appropriate.
+
+### Scope
+
+This Code of Conduct applies within all community spaces, and also applies when
+an individual is officially representing the community in public spaces.
+Examples of representing our community include using an official e-mail address,
+posting via an official social media account, or acting as an appointed
+representative at an online or offline event.
+
+### Enforcement
+
+Instances of abusive, harassing, or otherwise unacceptable behavior may be
+reported to the community leaders responsible for enforcement at
+sbarrow825@berkeley.edu
+
+All complaints will be reviewed and investigated promptly and fairly.
+
+All community leaders are obligated to respect the privacy and security of the
+reporter of any incident.
+
+#### Enforcement Guidelines
+
+Community leaders will follow these Community Impact Guidelines in determining
+the consequences for any action they deem in violation of this Code of Conduct:
+
+#### 1. Correction
+
+**Community Impact**: Use of inappropriate language or other behavior deemed
+unprofessional or unwelcome in the community.
+
+**Consequence**: A private, written warning from community leaders, providing
+clarity around the nature of the violation and an explanation of why the
+behavior was inappropriate. A public apology may be requested.
+
+#### 2. Warning
+
+**Community Impact**: A violation through a single incident or series
+of actions.
+
+**Consequence**: A warning with consequences for continued behavior. No
+interaction with the people involved, including unsolicited interaction with
+those enforcing the Code of Conduct, for a specified period of time. This
+includes avoiding interactions in community spaces as well as external channels
+like social media. Violating these terms may lead to a temporary or
+permanent ban.
+
+#### 3. Temporary Ban
+
+**Community Impact**: A serious violation of community standards, including
+sustained inappropriate behavior.
+
+**Consequence**: A temporary ban from any sort of interaction or public
+communication with the community for a specified period of time. No public or
+private interaction with the people involved, including unsolicited interaction
+with those enforcing the Code of Conduct, is allowed during this period.
+Violating these terms may lead to a permanent ban.
+
+#### 4. Permanent Ban
+
+**Community Impact**: Demonstrating a pattern of violation of community
+standards, including sustained inappropriate behavior,  harassment of an
+individual, or aggression toward or disparagement of classes of individuals.
+
+**Consequence**: A permanent ban from any sort of public interaction within
+the community.
+
+### Attribution
+
+This Code of Conduct is adapted from the [Contributor Covenant][homepage],
+version 2.0, available at
+https://www.contributor-covenant.org/version/2/0/code_of_conduct.html.
+
+Community Impact Guidelines were inspired by [Mozilla's code of conduct
+enforcement ladder](https://github.com/mozilla/diversity).
+
+[homepage]: https://www.contributor-covenant.org
+
+For answers to common questions about this code of conduct, see the FAQ at
+https://www.contributor-covenant.org/faq. Translations are available at
+https://www.contributor-covenant.org/translations.
+
+## Tests
+
+The following is a gif of the "Add a Burger" functionality in the app. Upon hitting submit on the shown form, a burger with the inputted name is added and ready to be devoured.
+
+![Add a burger](images/addABurger.gif)
+
+The following is a gif of the "DEVOUR!" functionality in the app. Upon hitting the devour button next to an undevoured burger, the burger will be moved to the right side of the page and will no longer be able to be devoured.
+
+![Devour a burger](images/devourABurger.gif)
+
+
+## Questions
+
+![Github Profile Picture](https://github.com/sbarrow825.png)
+
+For any questions concerning this project, please feel free to email me at sbarrow825@berkeley.edu
+
